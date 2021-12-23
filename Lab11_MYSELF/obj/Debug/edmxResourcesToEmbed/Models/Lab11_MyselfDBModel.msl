@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Lab11_MyselfDBModelContainer" CdmEntityContainer="Lab11_MyselfDB">
+    <EntitySetMapping Name="Magazine">
+      <EntityTypeMapping TypeName="Lab11_MyselfDBModel.Magazine">
+        <MappingFragment StoreEntitySet="Magazine">
+          <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Weapon">
+      <EntityTypeMapping TypeName="Lab11_MyselfDBModel.Weapon">
+        <MappingFragment StoreEntitySet="Weapon">
+          <ScalarProperty Name="IdWeapon" ColumnName="IdWeapon" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeaponMagazine">
+      <EntityTypeMapping TypeName="Lab11_MyselfDBModel.WeaponMagazine">
+        <MappingFragment StoreEntitySet="WeaponMagazine">
+          <ScalarProperty Name="IdWeaponMagazine" ColumnName="IdWeaponMagazine" />
+          <ScalarProperty Name="IdWeapon" ColumnName="IdWeapon" />
+          <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

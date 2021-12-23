@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Lab11_MyselfDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Magazine">
+    <Key>
+      <PropertyRef Name="IdMagazine" />
+    </Key>
+    <Property Name="IdMagazine" Type="Int32" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="WeaponMagazine" Relationship="Self.FK__WeaponMag__IdMag__5DCAEF64" FromRole="Magazine" ToRole="WeaponMagazine" />
+  </EntityType>
+  <EntityType Name="Weapon">
+    <Key>
+      <PropertyRef Name="IdWeapon" />
+    </Key>
+    <Property Name="IdWeapon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="WeaponMagazine" Relationship="Self.FK__WeaponMag__IdWea__5CD6CB2B" FromRole="Weapon" ToRole="WeaponMagazine" />
+  </EntityType>
+  <EntityType Name="WeaponMagazine">
+    <Key>
+      <PropertyRef Name="IdWeaponMagazine" />
+    </Key>
+    <Property Name="IdWeaponMagazine" Type="Int32" Nullable="false" />
+    <Property Name="IdWeapon" Type="Int32" Nullable="false" />
+    <Property Name="IdMagazine" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Magazine" Relationship="Self.FK__WeaponMag__IdMag__5DCAEF64" FromRole="WeaponMagazine" ToRole="Magazine" />
+    <NavigationProperty Name="Weapon" Relationship="Self.FK__WeaponMag__IdWea__5CD6CB2B" FromRole="WeaponMagazine" ToRole="Weapon" />
+  </EntityType>
+  <Association Name="FK__WeaponMag__IdMag__5DCAEF64">
+    <End Role="Magazine" Type="Self.Magazine" Multiplicity="1" />
+    <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Magazine">
+        <PropertyRef Name="IdMagazine" />
+      </Principal>
+      <Dependent Role="WeaponMagazine">
+        <PropertyRef Name="IdMagazine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WeaponMag__IdWea__5CD6CB2B">
+    <End Role="Weapon" Type="Self.Weapon" Multiplicity="1" />
+    <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Weapon">
+        <PropertyRef Name="IdWeapon" />
+      </Principal>
+      <Dependent Role="WeaponMagazine">
+        <PropertyRef Name="IdWeapon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Lab11_MyselfDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Magazine" EntityType="Self.Magazine" />
+    <EntitySet Name="Weapon" EntityType="Self.Weapon" />
+    <EntitySet Name="WeaponMagazine" EntityType="Self.WeaponMagazine" />
+    <AssociationSet Name="FK__WeaponMag__IdMag__5DCAEF64" Association="Self.FK__WeaponMag__IdMag__5DCAEF64">
+      <End Role="Magazine" EntitySet="Magazine" />
+      <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WeaponMag__IdWea__5CD6CB2B" Association="Self.FK__WeaponMag__IdWea__5CD6CB2B">
+      <End Role="Weapon" EntitySet="Weapon" />
+      <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

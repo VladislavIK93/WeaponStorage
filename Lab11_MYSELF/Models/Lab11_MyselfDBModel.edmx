@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Lab11_MyselfDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Magazine">
+          <Key>
+            <PropertyRef Name="IdMagazine" />
+          </Key>
+          <Property Name="IdMagazine" Type="int" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="IdWeapon" />
+          </Key>
+          <Property Name="IdWeapon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeaponMagazine">
+          <Key>
+            <PropertyRef Name="IdWeaponMagazine" />
+          </Key>
+          <Property Name="IdWeaponMagazine" Type="int" Nullable="false" />
+          <Property Name="IdWeapon" Type="int" Nullable="false" />
+          <Property Name="IdMagazine" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__WeaponMag__IdMag__5DCAEF64">
+          <End Role="Magazine" Type="Self.Magazine" Multiplicity="1" />
+          <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazine">
+              <PropertyRef Name="IdMagazine" />
+            </Principal>
+            <Dependent Role="WeaponMagazine">
+              <PropertyRef Name="IdMagazine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WeaponMag__IdWea__5CD6CB2B">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="1" />
+          <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="IdWeapon" />
+            </Principal>
+            <Dependent Role="WeaponMagazine">
+              <PropertyRef Name="IdWeapon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Lab11_MyselfDBModelContainer">
+          <EntitySet Name="Magazine" EntityType="Self.Magazine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Weapon" EntityType="Self.Weapon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeaponMagazine" EntityType="Self.WeaponMagazine" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__WeaponMag__IdMag__5DCAEF64" Association="Self.FK__WeaponMag__IdMag__5DCAEF64">
+            <End Role="Magazine" EntitySet="Magazine" />
+            <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WeaponMag__IdWea__5CD6CB2B" Association="Self.FK__WeaponMag__IdWea__5CD6CB2B">
+            <End Role="Weapon" EntitySet="Weapon" />
+            <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Lab11_MyselfDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Magazine">
+          <Key>
+            <PropertyRef Name="IdMagazine" />
+          </Key>
+          <Property Name="IdMagazine" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WeaponMagazine" Relationship="Self.FK__WeaponMag__IdMag__5DCAEF64" FromRole="Magazine" ToRole="WeaponMagazine" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="IdWeapon" />
+          </Key>
+          <Property Name="IdWeapon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WeaponMagazine" Relationship="Self.FK__WeaponMag__IdWea__5CD6CB2B" FromRole="Weapon" ToRole="WeaponMagazine" />
+        </EntityType>
+        <EntityType Name="WeaponMagazine">
+          <Key>
+            <PropertyRef Name="IdWeaponMagazine" />
+          </Key>
+          <Property Name="IdWeaponMagazine" Type="Int32" Nullable="false" />
+          <Property Name="IdWeapon" Type="Int32" Nullable="false" />
+          <Property Name="IdMagazine" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Magazine" Relationship="Self.FK__WeaponMag__IdMag__5DCAEF64" FromRole="WeaponMagazine" ToRole="Magazine" />
+          <NavigationProperty Name="Weapon" Relationship="Self.FK__WeaponMag__IdWea__5CD6CB2B" FromRole="WeaponMagazine" ToRole="Weapon" />
+        </EntityType>
+        <Association Name="FK__WeaponMag__IdMag__5DCAEF64">
+          <End Role="Magazine" Type="Self.Magazine" Multiplicity="1" />
+          <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazine">
+              <PropertyRef Name="IdMagazine" />
+            </Principal>
+            <Dependent Role="WeaponMagazine">
+              <PropertyRef Name="IdMagazine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WeaponMag__IdWea__5CD6CB2B">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="1" />
+          <End Role="WeaponMagazine" Type="Self.WeaponMagazine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="IdWeapon" />
+            </Principal>
+            <Dependent Role="WeaponMagazine">
+              <PropertyRef Name="IdWeapon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Lab11_MyselfDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Magazine" EntityType="Self.Magazine" />
+          <EntitySet Name="Weapon" EntityType="Self.Weapon" />
+          <EntitySet Name="WeaponMagazine" EntityType="Self.WeaponMagazine" />
+          <AssociationSet Name="FK__WeaponMag__IdMag__5DCAEF64" Association="Self.FK__WeaponMag__IdMag__5DCAEF64">
+            <End Role="Magazine" EntitySet="Magazine" />
+            <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WeaponMag__IdWea__5CD6CB2B" Association="Self.FK__WeaponMag__IdWea__5CD6CB2B">
+            <End Role="Weapon" EntitySet="Weapon" />
+            <End Role="WeaponMagazine" EntitySet="WeaponMagazine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Lab11_MyselfDBModelContainer" CdmEntityContainer="Lab11_MyselfDB">
+          <EntitySetMapping Name="Magazine">
+            <EntityTypeMapping TypeName="Lab11_MyselfDBModel.Magazine">
+              <MappingFragment StoreEntitySet="Magazine">
+                <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weapon">
+            <EntityTypeMapping TypeName="Lab11_MyselfDBModel.Weapon">
+              <MappingFragment StoreEntitySet="Weapon">
+                <ScalarProperty Name="IdWeapon" ColumnName="IdWeapon" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeaponMagazine">
+            <EntityTypeMapping TypeName="Lab11_MyselfDBModel.WeaponMagazine">
+              <MappingFragment StoreEntitySet="WeaponMagazine">
+                <ScalarProperty Name="IdWeaponMagazine" ColumnName="IdWeaponMagazine" />
+                <ScalarProperty Name="IdWeapon" ColumnName="IdWeapon" />
+                <ScalarProperty Name="IdMagazine" ColumnName="IdMagazine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
